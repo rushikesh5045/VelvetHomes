@@ -56,7 +56,7 @@ export const CartProvider = ({ children }) => {
     // Clear cart in the database
     try {
       const response = await fetch(
-        "http://localhost:8000/input/user/clearCart",
+        "https://velvethomes-bpj4.onrender.com/input/user/clearCart",
         {
           method: "POST",
           headers: {
@@ -80,7 +80,7 @@ export const CartProvider = ({ children }) => {
     console.log(updatedCart);
     try {
       const response = await fetch(
-        "http://localhost:8000/input/user/updateCart",
+        "https://velvethomes-bpj4.onrender.com/input/user/updateCart",
         {
           method: "POST",
           headers: {

@@ -40,7 +40,7 @@ const ProductListPage = () => {
     const fetchProducts = async () => {
       try {
         // Example API call:
-        const response = await fetch(`http://localhost:8000/input/products/category/${subCategory}`);
+        const response = await fetch(`https://velvethomes-bpj4.onrender.com/input/products/category/${subCategory}`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {

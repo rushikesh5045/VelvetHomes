@@ -21,7 +21,7 @@ const CompanyLandingPage = () => {
     const fetchCompanyDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/company/details/${companyId}`
+          `https://velvethomes-bpj4.onrender.com/company/details/${companyId}`
         );
         setCompanyDetails(response.data);
       } catch (error) {
@@ -32,7 +32,7 @@ const CompanyLandingPage = () => {
     const fetchProductSales = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/company/sales/${companyId}`
+          `https://velvethomes-bpj4.onrender.com/company/sales/${companyId}`
         );
         setProductSales(response.data);
       } catch (error) {

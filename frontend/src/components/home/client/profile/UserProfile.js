@@ -123,7 +123,7 @@ const UserProfilePage = () => {
     const fetchUserDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/input/user/${userId}`
+          `https://velvethomes-bpj4.onrender.com/input/user/${userId}`
         );
         setUserDetails(response.data.user);
       } catch (error) {
@@ -168,7 +168,7 @@ const UserProfilePage = () => {
   const fetchProductDetails = async (productId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/details/product/${productId}`
+        `https://velvethomes-bpj4.onrender.com/details/product/${productId}`
       );
       return response.data;
     } catch (error) {

@@ -183,7 +183,7 @@ const Signup = () => {
     } else {
       try {
         // Send the form data to the server
-        await axios.post('http://localhost:8000/api/auth/register', formData);
+        await axios.post('https://velvethomes-bpj4.onrender.com/api/auth/register', formData);
   
         console.log('Form submitted successfully!');
         // You can handle success message, redirection, etc. here

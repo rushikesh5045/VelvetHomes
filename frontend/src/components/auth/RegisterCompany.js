@@ -159,7 +159,7 @@ const CompanySignup = () => {
     } else {
       try {
         // Send the form data to the server
-        await axios.post('http://localhost:8000/api/auth/register/company', formData);
+        await axios.post('https://velvethomes-bpj4.onrender.com/api/auth/register/company', formData);
   
         console.log('Company Signup Form submitted successfully!');
         // You can handle the success case without the JWT token here

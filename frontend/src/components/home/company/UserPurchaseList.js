@@ -24,7 +24,7 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
     const fetchUserPurchases = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/company/purchases/${companyId}`
+          `https://velvethomes-bpj4.onrender.com/company/purchases/${companyId}`
         );
         setUserPurchases(response.data);
 
@@ -41,7 +41,7 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
           productIdArray.map(async (productId) => {
             try {
               const productDetailResponse = await axios.get(
-                `http://localhost:8000/input/${productId}`
+                `https://velvethomes-bpj4.onrender.com/input/${productId}`
               );
               return productDetailResponse.data;
             } catch (error) {

@@ -30,7 +30,7 @@ const EditProductPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`http://localhost:8000/company/update-product/${companyId}/${productId}`, product);
+      const response = await axios.put(`https://velvethomes-bpj4.onrender.com/company/update-product/${companyId}/${productId}`, product);
       setSuccessMessage('Product updated successfully!');
       console.log('Product updated successfully:', response.data);
     } catch (error) {
@@ -41,7 +41,7 @@ const EditProductPage = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/company/product/${productId}`);
+        const response = await axios.get(`https://velvethomes-bpj4.onrender.com/company/product/${productId}`);
         setProduct(response.data);
       } catch (error) {
         console.error('Error fetching product details:', error);

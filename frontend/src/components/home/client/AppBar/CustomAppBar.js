@@ -135,7 +135,7 @@ const CustomAppBarComponent = () => {
     const userId = localStorage.getItem("userId");
 
     try {
-      await fetch("http://localhost:8000/input/user/updateCart", {
+      await fetch("https://velvethomes-bpj4.onrender.com/input/user/updateCart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -154,7 +154,7 @@ const CustomAppBarComponent = () => {
     const userId = localStorage.getItem("userId");
 
     try {
-      await fetch("http://localhost:8000/input/user/placeOrder", {
+      await fetch("https://velvethomes-bpj4.onrender.com/input/user/placeOrder", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -20,7 +20,7 @@ const ExplorePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/input/products');
+        const response = await axios.get('https://velvethomes-bpj4.onrender.com/input/products');
         setProducts(response.data);
         setLoading(false);
         const uniqueCategories = [...new Set(response.data.map((product) => product.cat))];
@@ -41,7 +41,7 @@ const ExplorePage = () => {
         const companyDetailsMap = {};
         await Promise.all(
           uniqueCompanies.map(async (companyId) => {
-            const companyResponse = await axios.get(`http://localhost:8000/company/${companyId}`);
+            const companyResponse = await axios.get(`https://velvethomes-bpj4.onrender.com/company/${companyId}`);
             companyDetailsMap[companyId] = companyResponse.data.companyName;
           })
         );

@@ -25,7 +25,7 @@ const CompanyHome = () => {
     const fetchRecentPurchases = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:8000/company/purchases/${companyId}`);
+        const response = await axios.get(`https://velvethomes-bpj4.onrender.com/company/purchases/${companyId}`);
         const allPurchases = response.data
           .flatMap(user => user.purchases)
           .sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -36,7 +36,7 @@ const CompanyHome = () => {
         const productDetailsArray = await Promise.all(
           productIdArray.map(async productId => {
             try {
-              const productDetailResponse = await axios.get(`http://localhost:8000/input/${productId}`);
+              const productDetailResponse = await axios.get(`https://velvethomes-bpj4.onrender.com/input/${productId}`);
               return productDetailResponse.data;
             } catch (error) {
               console.error("Error fetching product details:", error);
@@ -58,7 +58,7 @@ const CompanyHome = () => {
 
     const fetchProductSales = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/company/sales/${companyId}`);
+        const response = await axios.get(`https://velvethomes-bpj4.onrender.com/company/sales/${companyId}`);
         setProductSales(response.data);
       } catch (error) {
         console.error("Error fetching product sales:", error);
@@ -89,7 +89,7 @@ const CompanyHome = () => {
     if (mostSoldProductDetails) {
       const fetchBuyers = async () => {
         try {
-          const response = await axios.get(`http://localhost:8000/user/${buyersArray[buyersArray.length-1]}`);
+          const response = await axios.get(`https://velvethomes-bpj4.onrender.com/user/${buyersArray[buyersArray.length-1]}`);
           const userData = response.data.user;
           const userOrderHistory = userData.orderHistory;
           setLastPurchaseDate(userData.orderHistory[userOrderHistory.length-1].date);

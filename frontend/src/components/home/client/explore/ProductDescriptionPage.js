@@ -47,14 +47,14 @@ const ProductDescriptionPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/input/${productId}`
+          `https://velvethomes-bpj4.onrender.com/input/${productId}`
         );
         setProduct(response.data);
         setLoading(false);
 
         // Fetch company details using the company ID from the product
         const companyResponse = await axios.get(
-          `http://localhost:8000/company/${response.data.company}`
+          `https://velvethomes-bpj4.onrender.com/company/${response.data.company}`
         );
         setCompanyName(companyResponse.data.companyName);
         // Set the initial selected image as the first image in the product's images array

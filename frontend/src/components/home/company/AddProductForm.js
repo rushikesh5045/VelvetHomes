@@ -40,7 +40,7 @@ const AddProductForm = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:8000/input/product",
+        "https://velvethomes-bpj4.onrender.com/input/product",
         {
           title: productData.title,
           price: Number(productData.price), // ensure price is sent as a number

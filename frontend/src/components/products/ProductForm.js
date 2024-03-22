@@ -53,7 +53,7 @@ const ProductForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/input/product",
+        "https://velvethomes-bpj4.onrender.com/input/product",
         {
           title: productData.title,
           price: productData.price,
