@@ -1,0 +1,87 @@
+@media (max-width: 600px) {
+  * {
+    font-family: sans-serif !important;
+  }
+
+  .custom-app-bar {
+    width: 100%;
+  }
+  .app-title {
+    font-size: 0.8rem !important;
+    margin-right: 9px !important;
+  }
+  .tool {
+    justify-content: space-between !important;
+  }
+  .menu-buttons {
+    justify-content: space-around !important;
+  }
+
+  .menu-button {
+    font-size: 10px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .login-button {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 10px !important;
+  }
+
+  .user-welcome {
+    font-size: 0.7rem !important;
+    margin-left: 0 !important;
+    margin-top: 8px !important;
+  }
+
+  /* Add more mobile-specific styles as needed */
+}
+
+/* CSS Animations */
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-2%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shrink {
+  0% {
+    width: 95%;
+  }
+  100% {
+    width: 90%;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Add any other styles you want to customize */

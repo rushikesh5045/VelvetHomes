@@ -1,0 +1,46 @@
+.addProductForm {
+  max-width: 600px;
+  margin: 10px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.addProductForm label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.addProductForm input,
+.addProductForm textarea {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.addProductForm textarea {
+  width: 500px;
+  height: 100px;
+}
+
+.addProductForm button {
+  background-color: black;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.addProductForm button:hover {
+  background-color: #005687;
+}
+
+.successMessage {
+  color: green;
+  margin-top: 10px;
+}

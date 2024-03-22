@@ -1,0 +1,27 @@
+@media screen and (max-width: 600px) {
+  .categories {
+    margin-top: 10px !important;
+    flex-direction: column !important;
+    color: #525050;
+  }
+
+  .categoryItem {
+    max-width: 100% !important; /* Full width on smaller screens */
+  }
+
+  .categoryOverlay {
+    padding: 10px !important;
+  }
+
+  .categoryTitle {
+    font-size: 1.7rem !important;
+  }
+
+  .categoryDescription {
+    font-size: 0.6rem !important;
+  }
+  .categoryImage {
+    height: 40vh !important;
+    object-fit: cover !important;
+  }
+}

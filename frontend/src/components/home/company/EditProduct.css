@@ -1,0 +1,48 @@
+/* EditProductPage.css */
+
+.edit-product-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-product-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.edit-product-form input,
+.edit-product-form textarea {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.edit-product-form textarea {
+  width: 500px;
+  height: 100px;
+}
+
+.update-button {
+  background-color: black;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.update-button:hover {
+  background-color: #005687;
+}
+/* EditProduct.css */
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+}
