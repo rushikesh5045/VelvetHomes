@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useParams, Link } from 'react-router-dom';
-import { Typography, Grid } from '@mui/material';
-import CustomAppBarComponent from '../client/AppBar/CustomAppBar';
-import ProductCard from '../client/explore/ProductCard'
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useParams, Link } from "react-router-dom";
+import { Typography, Grid } from "@mui/material";
+import CustomAppBarComponent from "../client/AppBar/CustomAppBar";
+import ProductCard from "../client/explore/ProductCard";
 
 const HomeButton = styled(Link)`
   position: absolute;
@@ -35,17 +35,16 @@ const ProductListPage = () => {
   const { subCategory } = useParams();
   const [products, setProducts] = useState([]);
 
-  // Fetch products for the selected subcategory
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Example API call:
-        const response = await fetch(`https://velvethomes-bpj4.onrender.com/input/products/category/${subCategory}`);
+        const response = await fetch(
+          `https://velvethomes-bpj4.onrender.com/input/products/category/${subCategory}`
+        );
         const data = await response.json();
         setProducts(data);
       } catch (error) {
         console.error(error);
-        // Handle error appropriately, e.g., display an error message to the user
       }
     };
 
@@ -56,16 +55,25 @@ const ProductListPage = () => {
     <>
       <CustomAppBarComponent />
 
-      <div style={{ padding: '20px' }}>
-        <Typography variant="h2" style={{ marginBottom: '20px', fontFamily: 'Sometype mono', textAlign: 'center' }}>
+      <div style={{ padding: "20px" }}>
+        <Typography
+          variant="h2"
+          style={{
+            marginBottom: "20px",
+            fontFamily: "Sometype mono",
+            textAlign: "center",
+          }}
+        >
           {subCategory}
         </Typography>
         <hr />
         <Grid container spacing={3}>
           {products.map((product, index) => (
             <Grid item key={index} xs={12} md={3}>
-              <Link to={`/products/${product._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                {/* Use the StyledProductCard component */}
+              <Link
+                to={`/products/${product._id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
                 <StyledProductCard product={product} />
               </Link>
             </Grid>

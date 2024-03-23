@@ -1,5 +1,3 @@
-/* EditProductPage.css */
-
 .edit-product-container {
   max-width: 600px;
   margin: 50px auto;
@@ -40,7 +38,6 @@
 .update-button:hover {
   background-color: #005687;
 }
-/* EditProduct.css */
 
 .success-message {
   color: green;

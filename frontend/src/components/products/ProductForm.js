@@ -20,7 +20,10 @@ const ProductForm = () => {
   const handleChange = (e) => {
     setProductData({
       ...productData,
-      [e.target.name]: e.target.name === "title" ? capitalizeFirstLetter(e.target.value) : e.target.value,
+      [e.target.name]:
+        e.target.name === "title"
+          ? capitalizeFirstLetter(e.target.value)
+          : e.target.value,
     });
   };
 
@@ -37,11 +40,11 @@ const ProductForm = () => {
     const dotNotBetweenNumbersRegex = /(?<!\d)\.(?!\d)/;
     return dotNotBetweenNumbersRegex.test(str);
   };
-  
+
   const handleDescriptionChange = (e) => {
     const descriptionValue = e.target.value;
     const shouldSplit = isDotNotBetweenNumbers(descriptionValue);
-  
+
     setProductData({
       ...productData,
       description: shouldSplit ? descriptionValue : e.target.value,
@@ -134,7 +137,7 @@ const ProductForm = () => {
           name="images"
           value={productData.images.join(", ")}
           onChange={handleImageChange}
-          style={{ height: "200px", width: "800px", wordWrap: 'break-word' }}
+          style={{ height: "200px", width: "800px", wordWrap: "break-word" }}
         />
       </div>
 

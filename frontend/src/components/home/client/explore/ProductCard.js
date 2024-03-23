@@ -1,48 +1,45 @@
-import React from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
+import React from "react";
+import { Card, CardContent, Typography } from "@mui/material";
 
-import { useInView } from 'react-intersection-observer';
+import { useInView } from "react-intersection-observer";
 
 const ProductCard = ({ product }) => {
-
-
   const [ref, inView] = useInView({
-    triggerOnce: true, // Trigger the animation only once
-    threshold: 0.2, // You can adjust this threshold value
+    triggerOnce: true,
+
+    threshold: 0.2,
   });
   const shouldAnimate = inView;
 
   const cardStyles = {
     maxWidth: 300,
-    margin: '20px',
-    transition: 'transform 0.5s ease-in-out',
-    '&:hover': {
-      transform: 'scale(2.05)',
+    margin: "20px",
+    transition: "transform 0.5s ease-in-out",
+    "&:hover": {
+      transform: "scale(2.05)",
     },
-    ...(shouldAnimate && { transform: 'scale(1.05)' }), // Apply animation if in view
+    ...(shouldAnimate && { transform: "scale(1.05)" }),
   };
 
   const imageStyles = {
-    width: '300px',
-    height: '250px',
+    width: "300px",
+    height: "250px",
   };
 
   const titleStyles = {
-    fontSize: '1rem',
-    height: '3.5rem', 
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    fontSize: "1rem",
+    height: "3.5rem",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
 
-    fontFamily: "'Sometype Mono', monospace", 
-  };
-
-  const priceStyles = {
-    display: 'flex',
-    alignItems: 'center',
     fontFamily: "'Sometype Mono', monospace",
   };
 
-
+  const priceStyles = {
+    display: "flex",
+    alignItems: "center",
+    fontFamily: "'Sometype Mono', monospace",
+  };
 
   return (
     <Card style={cardStyles} ref={ref}>
@@ -55,11 +52,14 @@ const ProductCard = ({ product }) => {
           {product.cat}
         </Typography>
         <div style={priceStyles}>
-          <Typography variant="body1" color="textPrimary" style={{ marginRight: '10px' }}>
+          <Typography
+            variant="body1"
+            color="textPrimary"
+            style={{ marginRight: "10px" }}
+          >
             Rs.{product.price}
           </Typography>
         </div>
-
       </CardContent>
     </Card>
   );

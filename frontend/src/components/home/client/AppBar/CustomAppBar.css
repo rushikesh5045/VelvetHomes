@@ -34,11 +34,8 @@
     margin-left: 0 !important;
     margin-top: 8px !important;
   }
-
-  /* Add more mobile-specific styles as needed */
 }
 
-/* CSS Animations */
 @keyframes appear {
   0% {
     opacity: 0;
@@ -83,5 +80,3 @@
     transform: translateY(-100%);
   }
 }
-
-/* Add any other styles you want to customize */

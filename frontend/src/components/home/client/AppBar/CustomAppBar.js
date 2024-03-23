@@ -23,24 +23,24 @@ import {
 import { styled } from "@mui/material/styles";
 import { useNavigate, Link } from "react-router-dom";
 import "./CustomAppBar.css";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DialogContentText from "@mui/material/DialogContentText";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useCart } from "../../../../context/CartContext";
 import MenuArray from "./MenuArray";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "#000",
 }));
 const menuStyles = {
   fontSize: "14px",
-  padding: "12px 16px", // Increased padding for better spacing
+  padding: "12px 16px",
   transition: "background-color 0.3s",
   "&:hover": {
-    backgroundColor: "#f1f1f1", // Add a color on hover
+    backgroundColor: "#f1f1f1",
   },
 };
 
@@ -48,7 +48,7 @@ const CustomAppBarComponent = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
-  const { cartItems, addToCart, removeFromCart,clearCart } = useCart();
+  const { cartItems, addToCart, removeFromCart, clearCart } = useCart();
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const userId = localStorage.getItem("userId");
   const [orderSuccess, setOrderSuccess] = useState(false);
@@ -69,22 +69,20 @@ const CustomAppBarComponent = () => {
   };
 
   useEffect(() => {
-   
     checkLoginStatus();
-    const successMessage = localStorage.getItem('successMessage');
+    const successMessage = localStorage.getItem("successMessage");
     if (successMessage) {
-      // Display the success message using react-toastify
       toast.success(successMessage, {
-        position: 'top-right',
+        position: "top-right",
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        autoClose:2000
-      })}
-    // Clear the success message from localStorage
-    localStorage.removeItem('successMessage');
+        autoClose: 2000,
+      });
+    }
 
+    localStorage.removeItem("successMessage");
   }, [cartItems]);
 
   const loginHandler = () => {
@@ -94,7 +92,7 @@ const CustomAppBarComponent = () => {
       localStorage.removeItem("role");
       localStorage.removeItem("userId");
       localStorage.removeItem("successMessage");
-      navigate('/')
+      navigate("/");
       setIsLoggedIn(false);
     } else {
       navigate("/login");
@@ -108,23 +106,22 @@ const CustomAppBarComponent = () => {
     setIsCartModalOpen(false);
   };
 
-  const handleIncreaseQuantity = async(index) => {
-    addToCart(cartItems[index]); // Assuming addToCart adds the same item
-    await updateCartInDatabase(cartItems); // Update cart in the database
+  const handleIncreaseQuantity = async (index) => {
+    addToCart(cartItems[index]);
+    await updateCartInDatabase(cartItems);
   };
 
   const handleDecreaseQuantity = async (index) => {
-    removeFromCart(cartItems[index]); // Assuming removeFromCart removes by item ID
-    await updateCartInDatabase(cartItems); // Update cart in the database
+    removeFromCart(cartItems[index]);
+    await updateCartInDatabase(cartItems);
   };
 
   const handlePlaceOrder = async () => {
-    await placeOrderInDatabase(cartItems); // Place order and update the database
-    // Show success message
+    await placeOrderInDatabase(cartItems);
+
     setOrderSuccess(true);
     clearCart();
 
-    // Close cart modal after a delay (you can adjust the delay as needed)
     setTimeout(() => {
       setOrderSuccess(false);
       handleCartModalClose();
@@ -135,13 +132,16 @@ const CustomAppBarComponent = () => {
     const userId = localStorage.getItem("userId");
 
     try {
-      await fetch("https://velvethomes-bpj4.onrender.com/input/user/updateCart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: userId, cart: updatedCart }),
-      });
+      await fetch(
+        "https://velvethomes-bpj4.onrender.com/input/user/updateCart",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: userId, cart: updatedCart }),
+        }
+      );
 
       console.log("Cart updated in the database.");
     } catch (error) {
@@ -150,23 +150,25 @@ const CustomAppBarComponent = () => {
   };
 
   const placeOrderInDatabase = async (cartItems) => {
-    // Make API request to update the server with the order
     const userId = localStorage.getItem("userId");
 
     try {
-      await fetch("https://velvethomes-bpj4.onrender.com/input/user/placeOrder", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userId,
-          cart: cartItems.map((item) => ({
-            product: item.productId,
-            quantity: item.quantity,
-          })),
-        }),
-      });
+      await fetch(
+        "https://velvethomes-bpj4.onrender.com/input/user/placeOrder",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            cart: cartItems.map((item) => ({
+              product: item.productId,
+              quantity: item.quantity,
+            })),
+          }),
+        }
+      );
 
       console.log("Order placed, cart items moved to order history.");
     } catch (error) {
@@ -176,7 +178,8 @@ const CustomAppBarComponent = () => {
 
   const menuItems = MenuArray;
   const [anchorEl, setAnchorEl] = useState({});
-  const capitalizedUserName = userName.charAt(0).toUpperCase() + userName.slice(1);
+  const capitalizedUserName =
+    userName.charAt(0).toUpperCase() + userName.slice(1);
   const handleMenuOpen = (event, menuId) => {
     setAnchorEl((prev) => ({ ...prev, [menuId]: event.currentTarget }));
   };
@@ -186,7 +189,6 @@ const CustomAppBarComponent = () => {
   };
 
   const handleMenuItemClick = (item, menuId) => {
-    // Handle the click on a menu item here
     console.log(`Clicked on ${item}`);
     handleMenuClose(menuId);
   };
@@ -198,97 +200,109 @@ const CustomAppBarComponent = () => {
   return (
     <>
       <CustomAppBar position="static" className="custom-app-bar">
-      <Toolbar style={{ justifyContent: "space-between" }} className="tool">
-  <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-    <Typography variant="h6" className="app-title">
-      VelvetHomes
-    </Typography>
-  </Link>
-  <div className="menu-buttons">
-    {menuItems.map((menu) => (
-      <Button
-        key={menu.id}
-        color="inherit"
-        aria-controls={menu.id}
-        aria-haspopup="true"
-        onClick={(e) => handleMenuOpen(e, menu.id)}
-        className="menu-button"
-      >
-        {menu.label}
-      </Button>
-    ))}
-    {menuItems.map((menu) => (
-      <Menu
-        key={menu.id}
-        anchorEl={anchorEl[menu.id]}
-        keepMounted
-        open={Boolean(anchorEl[menu.id])}
-        onClose={() => handleMenuClose(menu.id)}
-        TransitionComponent={Fade}
-        PaperComponent={(props) => <Paper {...props} />}
-      >
-        <div>
-          {menu.subMenuItems.map((item) => (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <Link
-                to={`/catList/${item}`}
-                style={{ textDecoration: "none", color: "inherit" }}
+        <Toolbar style={{ justifyContent: "space-between" }} className="tool">
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <Typography variant="h6" className="app-title">
+              VelvetHomes
+            </Typography>
+          </Link>
+          <div className="menu-buttons">
+            {menuItems.map((menu) => (
+              <Button
+                key={menu.id}
+                color="inherit"
+                aria-controls={menu.id}
+                aria-haspopup="true"
+                onClick={(e) => handleMenuOpen(e, menu.id)}
+                className="menu-button"
               >
-                <MenuItem
-                  key={item}
-                  onClick={() => handleMenuItemClick(item, menu.id)}
-                  sx={menuStyles}
-                >
-                  {item}
-                </MenuItem>
+                {menu.label}
+              </Button>
+            ))}
+            {menuItems.map((menu) => (
+              <Menu
+                key={menu.id}
+                anchorEl={anchorEl[menu.id]}
+                keepMounted
+                open={Boolean(anchorEl[menu.id])}
+                onClose={() => handleMenuClose(menu.id)}
+                TransitionComponent={Fade}
+                PaperComponent={(props) => <Paper {...props} />}
+              >
+                <div>
+                  {menu.subMenuItems.map((item) => (
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <Link
+                        to={`/catList/${item}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        <MenuItem
+                          key={item}
+                          onClick={() => handleMenuItemClick(item, menu.id)}
+                          sx={menuStyles}
+                        >
+                          {item}
+                        </MenuItem>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </Menu>
+            ))}
+          </div>
+          {isLoggedIn && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Link
+                to={`/user/${userId}`}
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <AccountCircleIcon style={{ color: "white" }} />
+                <div>
+                  <Typography
+                    variant="body2"
+                    className="user-welcome"
+                    style={{ color: "white", marginLeft: "10px" }}
+                  >
+                    Welcome , {capitalizedUserName}
+                  </Typography>
+                </div>
               </Link>
+
+              <Button
+                color="inherit"
+                className="cart-button"
+                onClick={handleCartModalOpen}
+              >
+                <ShoppingCartIcon />
+
+                {cartItems.length > 0 && (
+                  <span className="cart-item-count">{cartItems.length}</span>
+                )}
+              </Button>
             </div>
-          ))}
-        </div>
-      </Menu>
-    ))}
-  </div>
-  {isLoggedIn && (
-    <div style={{ display: "flex", alignItems: "center",justifyContent:"center" }}>
-      <Link to={`/user/${userId}`} style={{display:"flex",alignItems:"center"}}>
-        <AccountCircleIcon style={{color:"white"}} />  
-      <div>
-        <Typography
-          variant="body2"
-          className="user-welcome"
-          style={{ color: "white", marginLeft: "10px" }}
-        >
-          Welcome , {capitalizedUserName}
-        </Typography>
-      </div>
-      </Link>
-      {/* Shopping Cart Icon */}
-      <Button
-        color="inherit"
-        className="cart-button"
-        onClick={handleCartModalOpen}
-      >
-        <ShoppingCartIcon />
-        
-        {cartItems.length > 0 && (
-          <span className="cart-item-count">{cartItems.length}</span>
-        )}
-      </Button>
-    </div>
-  )}
-  <Button
-    onClick={loginHandler}
-    color="inherit"
-    className="login-button"
-    style={{ margin: "2px", textAlign: "center" }}
-  >
-    {isLoggedIn ? "Logout" : "Login"}
-  </Button>
-</Toolbar>
+          )}
+          <Button
+            onClick={loginHandler}
+            color="inherit"
+            className="login-button"
+            style={{ margin: "2px", textAlign: "center" }}
+          >
+            {isLoggedIn ? "Logout" : "Login"}
+          </Button>
+        </Toolbar>
       </CustomAppBar>
-  
-      {/* Shopping Cart Modal */}
-      <Dialog open={isCartModalOpen} onClose={handleCartModalClose} maxWidth="md">
+
+      <Dialog
+        open={isCartModalOpen}
+        onClose={handleCartModalClose}
+        maxWidth="md"
+      >
         <DialogTitle>
           Shopping Cart
           <IconButton
@@ -305,7 +319,7 @@ const CustomAppBarComponent = () => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-  
+
         <DialogContent>
           {orderSuccess ? (
             <Grow
@@ -322,7 +336,9 @@ const CustomAppBarComponent = () => {
           ) : (
             <>
               {cartItems.length === 0 ? (
-                <DialogContentText sx={{ padding: "16px", textAlign: "center" }}>
+                <DialogContentText
+                  sx={{ padding: "16px", textAlign: "center" }}
+                >
                   Your cart is empty.
                 </DialogContentText>
               ) : (
@@ -331,11 +347,21 @@ const CustomAppBarComponent = () => {
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell sx={{ textAlign: "center" }}>Image</TableCell>
-                          <TableCell sx={{ textAlign: "center" }}>Title</TableCell>
-                          <TableCell sx={{ textAlign: "center" }}>Price</TableCell>
-                          <TableCell sx={{ textAlign: "center" }}>Quantity</TableCell>
-                          <TableCell sx={{ textAlign: "center" }}>Total</TableCell>
+                          <TableCell sx={{ textAlign: "center" }}>
+                            Image
+                          </TableCell>
+                          <TableCell sx={{ textAlign: "center" }}>
+                            Title
+                          </TableCell>
+                          <TableCell sx={{ textAlign: "center" }}>
+                            Price
+                          </TableCell>
+                          <TableCell sx={{ textAlign: "center" }}>
+                            Quantity
+                          </TableCell>
+                          <TableCell sx={{ textAlign: "center" }}>
+                            Total
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -348,18 +374,24 @@ const CustomAppBarComponent = () => {
                                 style={{ maxWidth: "50px", maxHeight: "50px" }}
                               />
                             </TableCell>
-                            <TableCell>{(item.title).toLowerCase()}</TableCell>
+                            <TableCell>{item.title.toLowerCase()}</TableCell>
                             <TableCell>Rs. {item.price}</TableCell>
                             <TableCell>
-                              <Button onClick={() => handleDecreaseQuantity(index)}>
+                              <Button
+                                onClick={() => handleDecreaseQuantity(index)}
+                              >
                                 -
                               </Button>
                               {item.quantity}
-                              <Button onClick={() => handleIncreaseQuantity(index)}>
+                              <Button
+                                onClick={() => handleIncreaseQuantity(index)}
+                              >
                                 +
                               </Button>
                             </TableCell>
-                            <TableCell>Rs. {item.price * item.quantity}</TableCell>
+                            <TableCell>
+                              Rs. {item.price * item.quantity}
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -372,7 +404,9 @@ const CustomAppBarComponent = () => {
                       fontFamily: "'Roboto Mono', monospace",
                     }}
                   >
-                    <Typography>Total: Rs. {calculateTotal().toFixed(2)}</Typography>
+                    <Typography>
+                      Total: Rs. {calculateTotal().toFixed(2)}
+                    </Typography>
                     <Button
                       variant="contained"
                       color="primary"
@@ -387,14 +421,12 @@ const CustomAppBarComponent = () => {
             </>
           )}
         </DialogContent>
-  
+
         <DialogActions></DialogActions>
       </Dialog>
-      <ToastContainer/>
-
+      <ToastContainer />
     </>
   );
-  
 };
 
 export default CustomAppBarComponent;

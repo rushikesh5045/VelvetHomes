@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState,useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
@@ -12,29 +12,23 @@ export const CartProvider = ({ children }) => {
     );
 
     if (existingProduct) {
-      // Product already exists in the cart, update its quantity
       const updatedCart = cartItems.map((cartItem) =>
         cartItem.productId === existingProduct.productId
           ? { ...cartItem, quantity: cartItem.quantity + 1 }
           : cartItem
       );
 
-      // Update local state using the callback form to ensure the latest state
       setCartItems((prevCart) => updatedCart);
 
-      // Make a request to update the user's cart in the database
       await updateCartInDatabase(updatedCart);
     } else {
-      // Product doesn't exist in the cart, add it with quantity 1
       setCartItems((prevCart) => [...prevCart, { ...item, quantity: 1 }]);
 
-      // Make a request to update the user's cart in the database
       await updateCartInDatabase([...cartItems, { ...item, quantity: 1 }]);
     }
   };
 
   const removeFromCart = async (prod) => {
-    // Remove item from local state
     const updatedCart = cartItems
       .map((item) =>
         item.productId === prod.productId
@@ -43,17 +37,13 @@ export const CartProvider = ({ children }) => {
       )
       .filter((item) => item.quantity > 0);
 
-    // Update local state using the callback form to ensure the latest state
     setCartItems((prevCart) => updatedCart);
 
-    // Make a request to update the user's cart in the database
     await updateCartInDatabase(updatedCart);
   };
   const clearCart = async () => {
-    // Clear local state
     setCartItems([]);
 
-    // Clear cart in the database
     try {
       const response = await fetch(
         "https://velvethomes-bpj4.onrender.com/input/user/clearCart",
@@ -103,9 +93,10 @@ export const CartProvider = ({ children }) => {
     updateCartInDatabase(cartItems);
   }, [cartItems]);
 
-
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );

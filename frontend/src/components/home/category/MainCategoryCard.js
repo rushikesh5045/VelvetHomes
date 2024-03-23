@@ -1,4 +1,4 @@
-// components/LandingPage/MainCategoryCard.js
+
 import React, { useState } from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { keyframes } from "@emotion/react";
@@ -54,7 +54,7 @@ const MainCategoryCard = ({ label, labelImage }) => {
         {label}
       </Typography>
       <CardContent>
-        {/* You can remove this if you don't want additional content */}
+
       </CardContent>
     </Card>
   );

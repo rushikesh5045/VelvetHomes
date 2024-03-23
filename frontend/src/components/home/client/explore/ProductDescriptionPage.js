@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate,Link } from "react-router-dom";
-import styled from 'styled-components';
-import { toast,ToastContainer  } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useParams, useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   Typography,
@@ -41,7 +41,7 @@ const ProductDescriptionPage = () => {
   const [companyName, setCompanyName] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
-  const { addToCart } = useCart(); // Use the addToCart function from the context
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,12 +52,11 @@ const ProductDescriptionPage = () => {
         setProduct(response.data);
         setLoading(false);
 
-        // Fetch company details using the company ID from the product
         const companyResponse = await axios.get(
           `https://velvethomes-bpj4.onrender.com/company/${response.data.company}`
         );
         setCompanyName(companyResponse.data.companyName);
-        // Set the initial selected image as the first image in the product's images array
+
         setSelectedImage(response.data.images[0]);
       } catch (error) {
         console.error("Error fetching product details:", error.message);
@@ -78,12 +77,11 @@ const ProductDescriptionPage = () => {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(" ");
   };
-  
 
   const handleAddToCart = () => {
     const isLoggedIn =
       localStorage.getItem("token") && localStorage.getItem("role") === "user";
-  
+
     if (isLoggedIn) {
       addToCart({
         productId: product._id,
@@ -92,7 +90,7 @@ const ProductDescriptionPage = () => {
         displayImage: product.images[0],
         quantity: 1,
       });
-      // Show toast message
+
       toast.success("Product added to cart", {
         position: "top-center",
         autoClose: 500,
@@ -110,7 +108,6 @@ const ProductDescriptionPage = () => {
   };
 
   const handleBuyNow = () => {
-    // Add your logic to handle the "Buy Now" action
     console.log(`Buying ${product.title} now.`);
   };
 
@@ -149,7 +146,6 @@ const ProductDescriptionPage = () => {
               justifyContent="center"
             >
               <Grid item xs={12} md={4}>
-                {/* Column of small images */}
                 {product.images.map((image, index) => (
                   <img
                     key={index}
@@ -171,7 +167,6 @@ const ProductDescriptionPage = () => {
                 ))}
               </Grid>
               <Grid item xs={12} md={8} style={{ textAlign: "left" }}>
-                {/* Larger image */}
                 <Card>
                   <CardMedia
                     component="img"
@@ -192,7 +187,6 @@ const ProductDescriptionPage = () => {
 
             <Divider style={{ margin: "20px 0" }} />
 
-            {/* Description Section */}
             <div
               style={{
                 textAlign: "left",
@@ -208,7 +202,7 @@ const ProductDescriptionPage = () => {
                   (sentence, index) =>
                     sentence.trim() && (
                       <Typography key={index} color="textSecondary">
-                        <li style={{ marginBottom: "8px" ,fontSize:"10px"}}>
+                        <li style={{ marginBottom: "8px", fontSize: "10px" }}>
                           {sentence.trim()}
                         </li>
                       </Typography>
@@ -248,7 +242,7 @@ const ProductDescriptionPage = () => {
                 <Button
                   variant="contained"
                   onClick={handleBuyNow}
-                  style={{  color: "white",backgroundColor:"chocolate" }}
+                  style={{ color: "white", backgroundColor: "chocolate" }}
                 >
                   Buy Now
                 </Button>
@@ -257,8 +251,7 @@ const ProductDescriptionPage = () => {
           </>
         )}
       </Paper>
-    <HomeButton to="/">← </HomeButton>
-
+      <HomeButton to="/">← </HomeButton>
     </>
   );
 };

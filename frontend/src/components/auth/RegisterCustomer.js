@@ -1,9 +1,8 @@
-// src/components/Signup.js
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -12,8 +11,7 @@ const Container = styled.div`
   justify-content: center;
   height: 100vh;
   background-color: #f4f4f4;
-  font-family: 'Poppins', sans-serif;
-  
+  font-family: "Poppins", sans-serif;
 `;
 
 const LeftDiv = styled.div`
@@ -22,10 +20,10 @@ const LeftDiv = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  z-index: 1; /* Ensure the image is on top */
+  z-index: 1;
   @media (max-width: 768px) {
     img {
-      display: none; /* hide the image on smaller screens */
+      display: none;
     }
   }
 `;
@@ -36,12 +34,11 @@ const FormContainer = styled(motion.div)`
   padding: 20px;
   margin-bottom: 20px;
   font-size: 2em;
-  
+
   @media (max-width: 768px) {
     text-align: center;
-    margin-top: 40px; /* Add some margin to the top on smaller screens */
+    margin-top: 40px;
   }
-
 `;
 
 const Input = styled.input`
@@ -80,54 +77,50 @@ const HomeButton = styled(Link)`
   text-align: center;
 `;
 const ErrorMessage = styled.p`
-color: red;
-font-size: 0.8rem;
-margin-top: 4px;
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
 `;
-
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    pincode: '',
-    password: '',
-    confirmPassword: '',
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    pincode: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    pincode: '',
-    password: '',
-    confirmPassword: '',
+    name: "",
+    email: "",
+    phone: "",
+    pincode: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const validateEmail = (email) => {
-    // Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const validatePassword = (password) => {
-    // Password validation regex
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordRegex.test(password);
   };
 
   const validatePhone = (phone) => {
-    // Phone validation regex
     const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phone);
   };
 
   const validatePincode = (pincode) => {
-    // Pincode validation regex
     const pincodeRegex = /^\d{6}$/;
     return pincodeRegex.test(pincode);
   };
@@ -138,28 +131,33 @@ const Signup = () => {
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    let errorMessage = '';
+    let errorMessage = "";
 
     switch (name) {
-      case 'name':
-        errorMessage = value.trim() === '' ? 'Name must not be empty.' : '';
+      case "name":
+        errorMessage = value.trim() === "" ? "Name must not be empty." : "";
         break;
-      case 'email':
-        errorMessage = !validateEmail(value) ? 'Invalid email format.' : '';
+      case "email":
+        errorMessage = !validateEmail(value) ? "Invalid email format." : "";
         break;
-      case 'phone':
-        errorMessage = !validatePhone(value) ? 'Phone number must be 10 digits.' : '';
+      case "phone":
+        errorMessage = !validatePhone(value)
+          ? "Phone number must be 10 digits."
+          : "";
         break;
-      case 'pincode':
-        errorMessage = !validatePincode(value) ? 'Pincode must be 6 digits.' : '';
+      case "pincode":
+        errorMessage = !validatePincode(value)
+          ? "Pincode must be 6 digits."
+          : "";
         break;
-      case 'password':
+      case "password":
         errorMessage = !validatePassword(value)
-          ? 'Password must be at least 8 characters with 1 uppercase, 1 lowercase, 1 digit, and 1 special symbol.'
-          : '';
+          ? "Password must be at least 8 characters with 1 uppercase, 1 lowercase, 1 digit, and 1 special symbol."
+          : "";
         break;
-      case 'confirmPassword':
-          errorMessage = value !== formData.password ? 'Passwords do not match.' : '';
+      case "confirmPassword":
+        errorMessage =
+          value !== formData.password ? "Passwords do not match." : "";
         break;
       default:
         break;
@@ -170,33 +168,29 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Check for any remaining errors
+
     for (const key in formData) {
       handleBlur({ target: { name: key, value: formData[key] } });
     }
-  
-    // Check if any errors exist
-    if (Object.values(errors).some((error) => error !== '')) {
-      console.log('Form has errors:', errors);
-      // Handle errors, display a message, etc.
+
+    if (Object.values(errors).some((error) => error !== "")) {
+      console.log("Form has errors:", errors);
     } else {
       try {
-        // Send the form data to the server
-        await axios.post('https://velvethomes-bpj4.onrender.com/api/auth/register', formData);
-  
-        console.log('Form submitted successfully!');
-        // You can handle success message, redirection, etc. here
-  
-        // Optionally, redirect the user to a different page after successful registration
-        navigate('/login'); // Update the route as needed
+        await axios.post(
+          "https://velvethomes-bpj4.onrender.com/api/auth/register",
+          formData
+        );
+
+        console.log("Form submitted successfully!");
+
+        navigate("/login");
       } catch (error) {
-        console.error('Error submitting form:', error);
-        // Handle the error, display a message, etc.
+        console.error("Error submitting form:", error);
       }
     }
   };
-  
+
   return (
     <Container>
       <LeftDiv>
@@ -204,13 +198,18 @@ const Signup = () => {
           style={{
             height: "500px",
             width: "90%",
-            borderRadius: '15px',
-
+            borderRadius: "15px",
           }}
-          src={require('./logo.png')} alt='logo' />
+          src={require("./logo.png")}
+          alt="logo"
+        />
       </LeftDiv>
 
-      <FormContainer className='form' initial={{ opacity: 0, y: -100 }} animate={{ opacity: 1, y: 0 }}>
+      <FormContainer
+        className="form"
+        initial={{ opacity: 0, y: -100 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -287,18 +286,25 @@ const Signup = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword}</ErrorMessage>}
+            {errors.confirmPassword && (
+              <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
+            )}
           </div>
           <Button type="submit">Sign Up</Button>
         </form>
-        <Button onClick={() => navigate('/login')}>Have an account? Login</Button>
-        <Button onClick={() => navigate('/register/company')}>Sign Up as Company</Button>
-        <Button onClick={() => navigate('/register/admin')}>Sign Up as Admin</Button>
+        <Button onClick={() => navigate("/login")}>
+          Have an account? Login
+        </Button>
+        <Button onClick={() => navigate("/register/company")}>
+          Sign Up as Company
+        </Button>
+        <Button onClick={() => navigate("/register/admin")}>
+          Sign Up as Admin
+        </Button>
       </FormContainer>
-      <HomeButton to="/">←  Home</HomeButton>
+      <HomeButton to="/">← Home</HomeButton>
     </Container>
   );
-
 };
 
 export default Signup;

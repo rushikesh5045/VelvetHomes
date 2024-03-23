@@ -3,7 +3,8 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import CustomAppBarComponent from "../AppBar/CustomAppBar";
 import PersonIcon from "@mui/icons-material/Person";
-import EmailIcon from "@mui/icons-material/Email"; // Material Icon for email
+import EmailIcon from "@mui/icons-material/Email";
+
 import PhoneIcon from "@mui/icons-material/Phone";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -12,9 +13,10 @@ const styles = {
     maxWidth: "800px",
     margin: "auto",
     padding: "20px",
-    backgroundColor: "#fff", // Background color
+    backgroundColor: "#fff",
+
     borderRadius: "10px",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", // Box shadow
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
   },
   heading: {
     fontSize: "28px",
@@ -25,7 +27,8 @@ const styles = {
   userInfo: {
     marginBottom: "20px",
     padding: "20px",
-    backgroundColor: "#f8f8f8", // Background color for user details
+    backgroundColor: "#f8f8f8",
+
     borderRadius: "8px",
     display: "flex",
     justifyContent: "space-between",
@@ -38,7 +41,8 @@ const styles = {
   orderHistoryHeading: {
     fontSize: "24px",
     marginBottom: "10px",
-    color: "#333", // Text color
+    color: "#333",
+
     fontFamily: "sans-serif",
   },
   orderContainer: {
@@ -48,9 +52,10 @@ const styles = {
     borderRadius: "8px",
     marginBottom: "20px",
     padding: "10px",
-    transition: "box-shadow 0.3s ease-in-out", // Add transition for box shadow
+    transition: "box-shadow 0.3s ease-in-out",
+
     ":hover": {
-      boxShadow: "5 5 15px rgba(0, 0, 0, 0.2)", // Hover effect
+      boxShadow: "5 5 15px rgba(0, 0, 0, 0.2)",
     },
   },
   orderText: {
@@ -66,12 +71,14 @@ const styles = {
   productItem: {
     listStyle: "none",
 
-    color: "#333", // Text color
+    color: "#333",
+
     borderBottom: "1px solid #ccc",
     padding: "10px",
-    transition: "background-color 0.3s ease-in-out", // Add transition for background color
+    transition: "background-color 0.3s ease-in-out",
+
     ":hover": {
-      backgroundColor: "#f8f8f8", // Hover effect background color
+      backgroundColor: "#f8f8f8",
     },
   },
 };
@@ -88,7 +95,6 @@ const UserProfilePage = () => {
   const [filteredOrders, setFilteredOrders] = useState(orderDetails);
 
   const handleSearch = () => {
-
     const filtered = orderDetails.filter((order) =>
       order.products.some((product) =>
         product.details.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -99,17 +105,17 @@ const UserProfilePage = () => {
   };
 
   const highlightText = (text, query) => {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, (match) => `<span style="background-color: yellow">${match}</span>`);
+    const regex = new RegExp(`(${query})`, "gi");
+    return text.replace(
+      regex,
+      (match) => `<span style="background-color: yellow">${match}</span>`
+    );
   };
 
-
   useEffect(() => {
-
     if (searchQuery === "") {
       setFilteredOrders(orderDetails);
     } else {
-
       handleSearch();
     }
   }, [searchQuery, orderDetails]);

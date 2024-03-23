@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './AdminDashboard.css'; // Import your CSS styles
-
+import './AdminDashboard.css'; 
 
 
 const AdminDashboard = () => {
@@ -57,7 +56,7 @@ const AdminDashboard = () => {
         </div>
 
         <h2>User Management</h2>
-        {/* User management table can be added here */}
+
         <table className="admin-table">
           <thead>
             <tr>
@@ -69,16 +68,14 @@ const AdminDashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {/* User data rows go here */}
+
           </tbody>
         </table>
 
         <h2>Product Management</h2>
-        {/* Product management table, forms, and charts can be added here */}
-        {/* For data tables and charts, consider using libraries like react-table and react-chartjs-2. */}
+
 
         <h2>Order Management</h2>
-        {/* Order management table can be added here */}
       </main>
     </div>
   );

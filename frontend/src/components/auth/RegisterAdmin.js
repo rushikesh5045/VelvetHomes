@@ -1,9 +1,8 @@
-// src/components/AdminSignup.js
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios'; // Import axios for making HTTP requests
+import React, { useState } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +10,7 @@ const Container = styled.div`
   justify-content: center;
   height: 100vh;
   background-color: #f4f4f4;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 `;
 
 const LeftDiv = styled.div`
@@ -22,7 +21,7 @@ const LeftDiv = styled.div`
   border-radius: 10px;
   @media (max-width: 768px) {
     img {
-      display: none; /* hide the image on smaller screens */
+      display: none;
     }
   }
 `;
@@ -78,35 +77,33 @@ const AdminSignup = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    adminName: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
+    adminName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({
-    adminName: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
+    adminName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const validateEmail = (email) => {
-    // Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const validatePassword = (password) => {
-    // Password validation regex
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordRegex.test(password);
   };
 
   const validatePhone = (phone) => {
-    // Phone validation regex
     const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phone);
   };
@@ -117,25 +114,29 @@ const AdminSignup = () => {
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    let errorMessage = '';
+    let errorMessage = "";
 
     switch (name) {
-      case 'adminName':
-        errorMessage = value.trim() === '' ? 'Admin Name must not be empty.' : '';
+      case "adminName":
+        errorMessage =
+          value.trim() === "" ? "Admin Name must not be empty." : "";
         break;
-      case 'email':
-        errorMessage = !validateEmail(value) ? 'Invalid email format.' : '';
+      case "email":
+        errorMessage = !validateEmail(value) ? "Invalid email format." : "";
         break;
-      case 'phone':
-        errorMessage = !validatePhone(value) ? 'Phone number must be 10 digits.' : '';
+      case "phone":
+        errorMessage = !validatePhone(value)
+          ? "Phone number must be 10 digits."
+          : "";
         break;
-      case 'password':
+      case "password":
         errorMessage = !validatePassword(value)
-          ? 'Password must be at least 8 characters with 1 uppercase, 1 lowercase, 1 digit, and 1 special symbol.'
-          : '';
+          ? "Password must be at least 8 characters with 1 uppercase, 1 lowercase, 1 digit, and 1 special symbol."
+          : "";
         break;
-      case 'confirmPassword':
-        errorMessage = value !== formData.password ? 'Passwords do not match.' : '';
+      case "confirmPassword":
+        errorMessage =
+          value !== formData.password ? "Passwords do not match." : "";
         break;
       default:
         break;
@@ -146,29 +147,23 @@ const AdminSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Check for any remaining errors
     for (const key in formData) {
       handleBlur({ target: { name: key, value: formData[key] } });
     }
 
-    // Check if any errors exist
-    if (Object.values(errors).some((error) => error !== '')) {
-      console.log('Admin Signup Form has errors:', errors);
-      // Handle errors, display a message, etc.
+    if (Object.values(errors).some((error) => error !== "")) {
+      console.log("Admin Signup Form has errors:", errors);
     } else {
       try {
-        // Send the form data to the server
-        await axios.post('https://velvethomes-bpj4.onrender.com/api/auth/register/admin', formData);
+        await axios.post(
+          "https://velvethomes-bpj4.onrender.com/api/auth/register/admin",
+          formData
+        );
 
-        console.log('Admin Signup Form submitted successfully!');
-        // You can handle the success case without the JWT token here
-
-        // Optionally, redirect the user to a different page after successful registration
-        navigate('/login'); // Update the route as needed
+        console.log("Admin Signup Form submitted successfully!");
+        navigate("/login");
       } catch (error) {
-        console.error('Error submitting Admin Signup Form:', error);
-        // Handle the error, display a message, etc.
+        console.error("Error submitting Admin Signup Form:", error);
       }
     }
   };
@@ -178,34 +173,39 @@ const AdminSignup = () => {
       <LeftDiv>
         <img
           style={{
-            height: '500px',
-            width: '90%',
-            borderRadius: '15px',
+            height: "500px",
+            width: "90%",
+            borderRadius: "15px",
           }}
-          src={require('./logo.png')}
-          alt='logo'
+          src={require("./logo.png")}
+          alt="logo"
         />
       </LeftDiv>
 
-      <FormContainer initial={{ opacity: 0, y: -100 }} animate={{ opacity: 1, y: 0 }}>
+      <FormContainer
+        initial={{ opacity: 0, y: -100 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <h2>Admin Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <Input
-              type='text'
-              name='adminName'
-              placeholder='Admin Name'
+              type="text"
+              name="adminName"
+              placeholder="Admin Name"
               value={formData.adminName}
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errors.adminName && <ErrorMessage>{errors.adminName}</ErrorMessage>}
+            {errors.adminName && (
+              <ErrorMessage>{errors.adminName}</ErrorMessage>
+            )}
           </div>
           <div>
             <Input
-              type='email'
-              name='email'
-              placeholder='Email'
+              type="email"
+              name="email"
+              placeholder="Email"
               value={formData.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -214,9 +214,9 @@ const AdminSignup = () => {
           </div>
           <div>
             <Input
-              type='tel'
-              name='phone'
-              placeholder='Phone Number'
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
               value={formData.phone}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -225,9 +225,9 @@ const AdminSignup = () => {
           </div>
           <div>
             <Input
-              type='password'
-              name='password'
-              placeholder='Password'
+              type="password"
+              name="password"
+              placeholder="Password"
               value={formData.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -236,9 +236,9 @@ const AdminSignup = () => {
           </div>
           <div>
             <Input
-              type='password'
-              name='confirmPassword'
-              placeholder='Confirm Password'
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
               value={formData.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -247,13 +247,19 @@ const AdminSignup = () => {
               <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
             )}
           </div>
-          <Button type='submit'>Sign Up</Button>
+          <Button type="submit">Sign Up</Button>
         </form>
-        <Button onClick={() => navigate('/login')}>Have an account? Login</Button>
-        <Button onClick={() => navigate('/register/customer')}>Sign Up as Customer</Button>
-        <Button onClick={() => navigate('/register/company')}>Sign Up as Company</Button>
+        <Button onClick={() => navigate("/login")}>
+          Have an account? Login
+        </Button>
+        <Button onClick={() => navigate("/register/customer")}>
+          Sign Up as Customer
+        </Button>
+        <Button onClick={() => navigate("/register/company")}>
+          Sign Up as Company
+        </Button>
       </FormContainer>
-      <HomeButton to='/'>← Home</HomeButton>
+      <HomeButton to="/">← Home</HomeButton>
     </Container>
   );
 };

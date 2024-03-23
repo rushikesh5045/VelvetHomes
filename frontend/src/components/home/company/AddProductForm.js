@@ -43,7 +43,8 @@ const AddProductForm = () => {
         "https://velvethomes-bpj4.onrender.com/input/product",
         {
           title: productData.title,
-          price: Number(productData.price), // ensure price is sent as a number
+          price: Number(productData.price), 
+
           cat: productData.cat,
           dispimg: productData.dispimg,
           description: productData.description,

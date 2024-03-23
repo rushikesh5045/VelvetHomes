@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import CircularProgress from '@mui/material/CircularProgress';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   Table,
   TableBody,
@@ -52,7 +52,7 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
         );
 
         setProductDetails(productDetailsArray);
-        setIsLoading(false); // Set loading state to false after fetching data
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching user purchases:", error);
       }
@@ -67,23 +67,25 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
 
   const handleUserClick = (user) => {
     setSelectedUser((prevSelectedUser) =>
-      prevSelectedUser && prevSelectedUser._id === user._id
-        ? null
-        : user
+      prevSelectedUser && prevSelectedUser._id === user._id ? null : user
     );
     onUserClick(user);
   };
 
-  const handleDownloadCSV = () => {
-    // Download CSV logic remains the same...
-  };
+  const handleDownloadCSV = () => {};
 
   return (
     <div style={{ fontFamily: "Arial" }}>
       <h2 style={styles.heading}>Customers</h2>
-      {isLoading ? ( // Render CircularProgress if loading
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <CircularProgress  style={{ color: "black" }}/>
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress style={{ color: "black" }} />
         </div>
       ) : (
         userPurchases.map((user, userIndex) => (
@@ -97,20 +99,39 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
               }}
               onClick={() => handleUserClick(user)}
             >
-              <div style={{ display: "flex",alignItems:"center",justifyContent:"space-between",width:"100%" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
                 <div>
-                  <p style={{ fontSize: "18px", fontWeight: "bold", margin: "0" }}>
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "bold",
+                      margin: "0",
+                    }}
+                  >
                     {user.name}
                   </p>
-                  <p style={{ fontSize: "14px", margin: "0", color: "#757575" }}>
+                  <p
+                    style={{ fontSize: "14px", margin: "0", color: "#757575" }}
+                  >
                     {user.email}
                   </p>
                 </div>
-                <div style={{ }}>
+                <div style={{}}>
                   {selectedUser && selectedUser._id === user._id ? (
-                    <ExpandLessIcon style={{ fontSize: 24, color: "#3f51b5" }} />
+                    <ExpandLessIcon
+                      style={{ fontSize: 24, color: "#3f51b5" }}
+                    />
                   ) : (
-                    <ExpandMoreIcon style={{ fontSize: 24, color: "#3f51b5" }} />
+                    <ExpandMoreIcon
+                      style={{ fontSize: 24, color: "#3f51b5" }}
+                    />
                   )}
                 </div>
               </div>
@@ -129,7 +150,7 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {user.purchases.map((purchase, purchaseIndex) => (
+                      {user.purchases.map((purchase, purchaseIndex) =>
                         purchase.products.map((product, productIndex) => {
                           const filteredProductDetails = productDetails.find(
                             (detail) =>
@@ -142,24 +163,41 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
                                 key={`${userIndex}-${purchaseIndex}-${productIndex}`}
                               >
                                 <TableCell>
-                                  {productIndex === 0 ? (
-                                    new Date(purchase.date).toLocaleDateString()
-                                  ) : (
-                                    null
-                                  )}
+                                  {productIndex === 0
+                                    ? new Date(
+                                        purchase.date
+                                      ).toLocaleDateString()
+                                    : null}
                                 </TableCell>
                                 <TableCell>{product.productId}</TableCell>
                                 <TableCell>{product.quantity}</TableCell>
                                 <TableCell>
-                                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                    }}
+                                  >
                                     <img
-                                      src={filteredProductDetails.dispimg} // Access dispimg property directly
+                                      src={filteredProductDetails.dispimg}
                                       alt={filteredProductDetails.title}
-                                      style={{ height: "50px", width: "50px", marginRight: '10px' }}
+                                      style={{
+                                        height: "50px",
+                                        width: "50px",
+                                        marginRight: "10px",
+                                      }}
                                     />
                                     <div>
-                                      <p><strong>Title:</strong> {capitalizeFirstLetter(filteredProductDetails.title)}</p>
-                                      <p><strong>Price:</strong> Rs.{filteredProductDetails.price}</p>
+                                      <p>
+                                        <strong>Title:</strong>{" "}
+                                        {capitalizeFirstLetter(
+                                          filteredProductDetails.title
+                                        )}
+                                      </p>
+                                      <p>
+                                        <strong>Price:</strong> Rs.
+                                        {filteredProductDetails.price}
+                                      </p>
                                     </div>
                                   </div>
                                 </TableCell>
@@ -169,7 +207,7 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
                             return null;
                           }
                         })
-                      ))}
+                      )}
                     </TableBody>
                   </Table>
                 </TableContainer>
@@ -180,7 +218,19 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
       )}
 
       <div>
-        <button style={{color:"white",backgroundColor:"green",padding:"10px",border:"none",borderRadius:"10px",cursor:"pointer"}} onClick={handleDownloadCSV}>⬇ Download User Purchases</button>
+        <button
+          style={{
+            color: "white",
+            backgroundColor: "green",
+            padding: "10px",
+            border: "none",
+            borderRadius: "10px",
+            cursor: "pointer",
+          }}
+          onClick={handleDownloadCSV}
+        >
+          ⬇ Download User Purchases
+        </button>
       </div>
     </div>
   );
