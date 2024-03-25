@@ -17,7 +17,7 @@ import Arrays from './components/home/category/Arrays';
 import ProductListPage from './components/home/category/ProductListPage';
 import EditProductPage from './components/home/company/EditProductPage';
 import UserProfilePage from './components/home/client/profile/UserProfile';
-
+import PurchaseProcessPage from './components/home/client/explore/PurchaseProcessPage';
 const categories = Arrays;
 
 const router = ( 
@@ -38,7 +38,9 @@ const router = (
       <Route path="/user/:userId" element={<UserProfilePage/>} />
       <Route path="/products/:productId" element={<ProductDescriptionPage />} />
       <Route path="/catList/:subCategory" element={<ProductListPage />} />
+      <Route path="/buynow" element={<PurchaseProcessPage />} />
       <Route path="/category/:categoryId" element={<CatPage categories={categories} />} /> 
+
       <Route path='*' element={<NotFound/>} />
     </Routes>
     </CartProvider>

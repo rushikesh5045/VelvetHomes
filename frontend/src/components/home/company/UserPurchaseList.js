@@ -72,7 +72,51 @@ const UserPurchaseList = ({ companyId, onUserClick }) => {
     onUserClick(user);
   };
 
-  const handleDownloadCSV = () => {};
+  const handleDownloadCSV = () => {
+    if (!userPurchases || userPurchases.length === 0) {
+      console.error('No user purchase data available.');
+      return;
+    }
+  
+    const csvData = [['User ID', 'Name', 'Email', 'Product ID', 'Product Title', 'Price', 'Quantity', 'Date']];
+    userPurchases.forEach((user) => {
+      user.purchases.forEach((purchase) => {
+        purchase.products.forEach((product) => {
+          const filteredProductDetails = productDetails.find(
+            (detail) =>
+              detail._id === product.productId &&
+              detail.company === companyId
+          );
+          if (filteredProductDetails) {
+            csvData.push([
+              user._id,
+              user.name,
+              user.email,
+              product.productId,
+              filteredProductDetails.title,
+              filteredProductDetails.price,
+              product.quantity,
+              purchase.date,
+            ]);
+          }
+        });
+      });
+    });
+  
+    if (csvData.length === 1) {
+      console.error('No user purchase data available.');
+      return;
+    }
+  
+    // Create a CSV blob
+    const csvBlob = new Blob([csvData.map(row => row.join(',')).join('\n')], { type: 'text/csv' });
+  
+    // Create a download link
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(csvBlob);
+    link.download = 'user_purchases.csv';
+    link.click();
+  };
 
   return (
     <div style={{ fontFamily: "Arial" }}>

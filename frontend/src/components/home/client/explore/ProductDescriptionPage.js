@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useProduct } from "./ProductContext";
 
 import {
   Typography,
@@ -107,8 +108,17 @@ const ProductDescriptionPage = () => {
     }
   };
 
+  const { setProductInfo } = useProduct();
+
   const handleBuyNow = () => {
-    console.log(`Buying ${product.title} now.`);
+
+    setProductInfo({
+      productName: product.title,
+      productPrice: product.price,
+      productDisplayImage:product.dispimg
+    });
+
+    navigate("/buynow");
   };
 
   return (

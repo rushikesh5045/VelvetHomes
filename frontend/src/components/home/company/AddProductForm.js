@@ -124,13 +124,14 @@ const AddProductForm = () => {
         />
       </div>
       <div>
-        <input
+        <input 
           type="text"
           name="companyId"
           value={productData.companyId}
           readOnly
-          className="addProductForm input"
+          className="addProductForm input readonly-input"
           placeholder="Company ID"
+          readonly
         />
       </div>
       <div>

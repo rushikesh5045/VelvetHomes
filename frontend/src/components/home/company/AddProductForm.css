@@ -44,3 +44,11 @@
   color: green;
   margin-top: 10px;
 }
+
+.readonly-input {
+  background-color: #f4f4f4; /* Set background color */
+  color: #666666; /* Set text color */
+  border: 1px solid #cccccc; /* Set border color and thickness */
+  padding: 5px 10px; /* Add padding for better visual */
+  cursor: not-allowed; /* Change cursor to not-allowed when hovering */
+}
