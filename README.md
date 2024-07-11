@@ -13,6 +13,16 @@ VelvetHomes is a modern e-commerce platform designed to provide users with an in
 - **Search and Filter:** Advanced search and filtering options to find the perfect home.
 - **Responsive Design:** Optimized for desktop and mobile devices.
 
+
+## Images
+
+![1](./images/1.png)
+![2](./images/2.png)
+![3](./images/3.png)
+![4](./images/4.png)
+![5](./images/5.png)
+![6](./images/6.png)
+
 ## Technologies Used
 
 - **Frontend:**
@@ -42,12 +52,5 @@ Make sure you have the following installed:
 - **Purchase Process:** Spearheaded the development of a multi-step purchase process, streamlining user experience and enhancing conversion rates.
 - **State Management:** Leveraged context API for centralized state management, ensuring scalability and maintainability of the application architecture.
 
-## Images
 
-![1](./images/1.png)
-![2](./images/2.png)
-![3](./images/3.png)
-![4](./images/4.png)
-![5](./images/5.png)
-![6](./images/6.png)
 
